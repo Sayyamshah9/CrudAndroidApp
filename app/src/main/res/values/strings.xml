@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">CRUD</string>
+    <string name="logintxt">Login</string>
+    <string name="enter_email_l">Enter Email</string>
+    <string name="enter_password_l">Enter Password</string>
+    <string name="loginbtn">Login</string>
+    <string name="create_account">Create Account?</string>
+    <string name="signup">Signup</string>
+    <string name="official_logo">official logo of crud app</string>
+    <string name="official_logo_for_crud_app">official Logo for crud app</string>
+    <string name="create">Create Account</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="createbtn">Create</string>
+    <string name="already_have_account">Already have Account?</string>
+    <string name="login">Login</string>
+    <string name="create_new_account">Create New Account?</string>
+    <string name="create1">Create</string>
+    <string name="register">Register</string>
+</resources>
