@@ -1,5 +1,6 @@
 package com.example.crud;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -60,7 +61,7 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
-        //CLICK LISTNER FOR DIRECTING TO REGRISTRATION PAGE
+        //CLICK LISTENER FOR DIRECTING TO REGRISTRATION PAGE
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,28 +78,30 @@ public class loginActivity extends AppCompatActivity {
         UserModel Model1 = new UserModel(Email, Password);
         Call<UserModel> call1 = apiInterface1.loginUser(Model1);
 
-
         call1.enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if(response.isSuccessful()){
-                    String responseFromApi = response.body().getMsg().toString();
-                    if(responseFromApi.equals("Logged In")){
-                        sessionManager.createSession(true);
+            public void onResponse(@NonNull Call<UserModel> call, @NonNull Response<UserModel> response) {
+
+                String msgResponseFromApi = response.body().getMsg();
+                String idResponseFromApi = response.body().get_id();
+
+                if((response.body() != null) && (response.isSuccessful())){
+                    if(msgResponseFromApi.equals("Logged In")){
+                        Toast.makeText(loginActivity.this, msgResponseFromApi, Toast.LENGTH_SHORT).show();
+                        sessionManager.createSession(true, idResponseFromApi);
                         Intent i = new Intent(loginActivity.this, MainActivity.class);
                         startActivity(i);
-                        return;
+                    }else{
+                        Toast.makeText(loginActivity.this, msgResponseFromApi, Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(loginActivity.this, responseFromApi, Toast.LENGTH_SHORT).show();
                 }else {
-                    result.setText(response.message());
+                    Toast.makeText(loginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<UserModel> call, @NonNull Throwable t) {
                 result.setText(t.getMessage());
             }
         });
-
     }
 }

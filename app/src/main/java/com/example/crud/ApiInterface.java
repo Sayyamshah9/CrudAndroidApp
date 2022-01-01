@@ -20,5 +20,5 @@ public interface ApiInterface {
 
     //get request for getting crud data by userid
     @GET("/crudpage/{id}")
-    Call<List<CrudModel>> getCrudData(@Path("_id") String id);
+    Call<List<CrudModel>> getCrudData(@Path("id") String id);
 }

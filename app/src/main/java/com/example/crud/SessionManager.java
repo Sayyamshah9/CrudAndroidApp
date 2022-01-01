@@ -17,9 +17,9 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createSession(Boolean loginStatus){
+    public void createSession(Boolean loginStatus, String id){
 
-//        editor.putString("EMAIL_KEY",email);
+        editor.putString("USER_ID", id);
         editor.putBoolean("STATUS_KEY", loginStatus);
         editor.apply();
     }
