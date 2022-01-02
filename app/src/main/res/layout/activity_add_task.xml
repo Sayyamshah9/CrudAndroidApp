@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTask"
+    android:orientation="vertical">
+
+<!--    TOOLBAR-->
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/color3">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/backbtn"
+                android:id="@+id/backbtn"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="119dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/logo"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.Toolbar>
+<!--    TOOLBAR ENDS HERE-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:text="Create New Task"
+        android:textSize="22dp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/color1"/>
+
+<!--    INPUT FIELD CODE-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Add Title"
+        android:id="@+id/title"
+        android:layout_margin="18dp"
+        android:layout_marginBottom="9dp"
+        android:textCursorDrawable="@null"
+        android:textSize="16sp"
+        android:backgroundTint="@color/color1"
+        android:maxLines="1"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Add Sub Title"
+        android:id="@+id/stitle"
+        android:layout_margin="18dp"
+        android:layout_marginBottom="18dp"
+        android:textCursorDrawable="@null"
+        android:textSize="16sp"
+        android:backgroundTint="@color/color1"
+        android:maxLines="1"/>
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:id="@+id/descrip"
+        android:padding="12dp"
+        android:layout_margin="18dp"
+        android:background="@drawable/shapes1"
+        android:hint="Add Description"
+        android:textCursorDrawable="@null"
+        android:textSize="16sp"
+        android:gravity="start"/>
+
+<!--    DUE DATE LAYOUT-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:orientation="horizontal"
+        android:id="@+id/duedatell"
+        android:textCursorDrawable="@null"
+        android:gravity="fill">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableEnd="@drawable/calender"
+            android:id="@+id/ddate"
+            android:hint="Select Date"
+            android:focusable="false"
+            android:backgroundTint="@color/color1"
+            android:textSize="16sp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/addtask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:height="45dp"
+        android:background="@color/color1"
+        android:text="ADD"
+        android:textSize="16sp"
+        app:rippleColor="#FFFFFF" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

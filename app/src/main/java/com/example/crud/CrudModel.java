@@ -11,6 +11,14 @@ public class CrudModel {
         this.duedate = duedate;
     }
 
+    //CONSTRUCTOR TO POST CRUD DATA INTO API/DB
+    public CrudModel(String title, String subtitle, String description, String duedate) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.description = description;
+        this.duedate = duedate;
+    }
+
     public String get_id() {
         return _id;
     }

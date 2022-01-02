@@ -91,7 +91,6 @@ public class RegristrationActivity extends AppCompatActivity {
 
                 if(response.isSuccessful()){
                     String responseFromApi = response.body().getMsg().toString();
-//                    String stringResponse = responseFromApi.toString();
                     if(responseFromApi.equals("User Created")){
                         Toast.makeText(RegristrationActivity.this, "Registred Successfully, Login with your Credentials" , Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(RegristrationActivity.this,loginActivity.class);

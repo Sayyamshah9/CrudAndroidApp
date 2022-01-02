@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView logoutBtn;
     SessionManager sessionManager;
     RecyclerView recyclerView;
+    Button addtaskbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
         logoutBtn = findViewById(R.id.logoutbtn);
+        addtaskbtn = findViewById(R.id.addtaskbtn);
+
+        //ADD TASK BTN CODE
+        addtaskbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddTask.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     //LOGOUT BUTTON CODE
         //DIALOG BOX
@@ -69,9 +83,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //CALLING CRUD API
-//        Toast.makeText(MainActivity.this, userId, Toast.LENGTH_SHORT).show();
         String userId = sessionManager.pref.getString("USER_ID", "NULL");
-//        getCrudDataAndSetInRecyclerView(userId);
+        getCrudDataAndSetInRecyclerView(userId);
     }
 
     public  void getCrudDataAndSetInRecyclerView(String Uid){

@@ -40,6 +40,7 @@
         android:fontFamily="@font/open_sans"
         android:hint="@string/enter_email"
         android:inputType="textEmailAddress"
+        android:textCursorDrawable="@null"
         android:textSize="16sp"/>
 
     <!--   Email Error TextView-->
@@ -67,6 +68,7 @@
         android:hint="@string/enter_password"
         android:textSize="16sp"
         android:inputType="textPassword"
+        android:textCursorDrawable="@null"
         android:autofillHints="password"/>
 
     <!--   Passowrd Error TextView-->

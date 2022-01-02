@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CRUD"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AddTask"
+            android:exported="false" />
+        <activity
             android:name=".loginActivity"
             android:exported="true">
             <intent-filter>
@@ -23,10 +26,10 @@
         </activity>
         <activity
             android:name=".RegristrationActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

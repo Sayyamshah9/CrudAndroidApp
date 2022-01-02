@@ -21,4 +21,8 @@ public interface ApiInterface {
     //get request for getting crud data by userid
     @GET("/crudpage/{id}")
     Call<List<CrudModel>> getCrudData(@Path("id") String id);
+
+    //creating new task post request
+    @POST("/crudpage/{id}")
+    Call<CrudModel> createNewTask(@Path("id") String id, @Body CrudModel crudModel);
 }
