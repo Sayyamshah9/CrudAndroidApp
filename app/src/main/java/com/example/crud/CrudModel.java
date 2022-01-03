@@ -3,14 +3,6 @@ package com.example.crud;
 public class CrudModel {
     String _id, userid, title, subtitle, description, duedate, msg;
 
-    public CrudModel(String userid, String title, String subtitle, String description, String duedate) {
-        this.userid = userid;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.description = description;
-        this.duedate = duedate;
-    }
-
     //CONSTRUCTOR TO POST CRUD DATA INTO API/DB
     public CrudModel(String title, String subtitle, String description, String duedate) {
         this.title = title;

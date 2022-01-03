@@ -91,6 +91,7 @@ public class loginActivity extends AppCompatActivity {
                         sessionManager.createSession(true, idResponseFromApi);
                         Intent i = new Intent(loginActivity.this, MainActivity.class);
                         startActivity(i);
+                        finish();
                     }else{
                         Toast.makeText(loginActivity.this, msgResponseFromApi, Toast.LENGTH_SHORT).show();
                     }

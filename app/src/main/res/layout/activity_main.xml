@@ -39,9 +39,19 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="470dp"
         android:layout_margin="18dp"
         android:id="@+id/tasklist"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/color1"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="9dp"
+        android:id="@+id/refreshbtn"
+        android:text="Refresh"/>
 
     <Button
         android:layout_width="match_parent"

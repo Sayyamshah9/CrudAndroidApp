@@ -26,12 +26,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener {
 
     ImageView logoutBtn;
     SessionManager sessionManager;
     RecyclerView recyclerView;
-    Button addtaskbtn;
+    Button addtaskbtn, refreshbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,17 @@ public class MainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         logoutBtn = findViewById(R.id.logoutbtn);
         addtaskbtn = findViewById(R.id.addtaskbtn);
+        refreshbtn = findViewById(R.id.refreshbtn);
+
+        //GETTING ID'S FROM SHARED PREFERENCES
+        String userId = sessionManager.pref.getString("USER_ID", "NULL");
+
+        refreshbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getCrudDataAndSetInRecyclerView(userId);
+            }
+        });
 
         //ADD TASK BTN CODE
         addtaskbtn.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //CALLING CRUD API
-        String userId = sessionManager.pref.getString("USER_ID", "NULL");
         getCrudDataAndSetInRecyclerView(userId);
     }
 
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     //RECYCLERVIEW CODE
                     recyclerView = findViewById(R.id.tasklist);
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    CrudAdapter crudAdapter = new CrudAdapter(MainActivity.this, data);
+                    CrudAdapter crudAdapter = new CrudAdapter(MainActivity.this, MainActivity.this, data);
                     recyclerView.setAdapter(crudAdapter);
                 }else {
                     Log.e(TAG, response.message());
@@ -113,4 +123,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void deleteCrudData(CrudModel dCM) {
+        EditDeleteDataClass editDeleteDataClass = new EditDeleteDataClass(MainActivity.this);
+        editDeleteDataClass.deleteTask(dCM.get_id().toString());
+    }
+
+    @Override
+    public void editCrudData(CrudModel eCM) {
+        Toast.makeText(MainActivity.this, "Edit : " + eCM.get_id(), Toast.LENGTH_SHORT).show();
+    }
 }

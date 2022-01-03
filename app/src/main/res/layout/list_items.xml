@@ -8,16 +8,17 @@
     android:background="@color/color3"
     android:padding="12dp"
     android:clickable="true"
-    android:foreground="?attr/selectableItemBackground"
     android:elevation="@dimen/cardview_default_elevation"
-    android:focusable="true">
+    android:focusable="true"
+    android:id="@+id/masterll">
 
 <!--  Start Parent LinearLayout -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/parentll"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:foreground="?attr/selectableItemBackground">
 
         <!-- Start LinearLayout-1 (Horizontal)-->
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -122,7 +123,8 @@
                 android:id="@+id/editbtn"
                 android:background="@drawable/shapes"
                 android:layout_marginRight="9dp"
-                android:src="@drawable/editbtn"/>
+                android:src="@drawable/editbtn"
+                android:foreground="?attr/selectableItemBackground"/>
             <!--        DELETE IMG VIEW-->
             <ImageView
                 android:layout_width="36dp"
@@ -130,7 +132,8 @@
                 android:id="@+id/deletebtn"
                 android:layout_marginLeft="9dp"
                 android:background="@drawable/shapes"
-                android:src="@drawable/deletebtn"/>
+                android:src="@drawable/deletebtn"
+                android:foreground="?attr/selectableItemBackground"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <!--   End LinerLayout 4 (Horizantal)-->
 
