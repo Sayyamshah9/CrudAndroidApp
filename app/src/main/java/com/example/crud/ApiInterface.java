@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -30,4 +31,8 @@ public interface ApiInterface {
     //DELETE REQUEST TO DELETE TASK
     @DELETE("crudpage/{id}")
     Call<CrudModel> deleteTask(@Path("id") String id);
+
+    //UPDATE REQUEST
+    @PATCH("/crudpage/{id}")
+    Call<CrudModel> updateTask(@Path("id") String id, @Body CrudModel crudModel);
 }

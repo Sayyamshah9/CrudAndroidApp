@@ -1,6 +1,6 @@
 package com.example.crud;
 
-public class CrudModel {
+public class CrudModel{
     String _id, userid, title, subtitle, description, duedate, msg;
 
     //CONSTRUCTOR TO POST CRUD DATA INTO API/DB

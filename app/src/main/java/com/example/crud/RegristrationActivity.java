@@ -90,16 +90,9 @@ public class RegristrationActivity extends AppCompatActivity {
                 confirm.setText("");
 
                 if(response.isSuccessful()){
-                    String responseFromApi = response.body().getMsg().toString();
-                    if(responseFromApi.equals("User Created")){
-                        Toast.makeText(RegristrationActivity.this, "Registred Successfully, Login with your Credentials" , Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(RegristrationActivity.this,loginActivity.class);
-                        startActivity(i);
-//                    result.setText(stringResponse);
-                    }else {
-                        Toast.makeText(RegristrationActivity.this, responseFromApi, Toast.LENGTH_SHORT).show();
-                    }
-
+                    Toast.makeText(RegristrationActivity.this, "Registred Successfully, Login with your Credentials" , Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(RegristrationActivity.this,loginActivity.class);
+                    startActivity(i);
                 }else {
                     String messageFromApi = response.message();
                     result.setText(messageFromApi);

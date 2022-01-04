@@ -59,6 +59,7 @@ public class AddTask extends AppCompatActivity {
             }
         });
 
+        //ADD TASK BTN CODE
         addtask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +67,15 @@ public class AddTask extends AppCompatActivity {
                 sstitle = subtitle.getText().toString();
                 sdescrip = description.getText().toString();
 
-                //GETTING USERID FROM SHARED PREFERENCES
-                sessionManager = new SessionManager(getApplicationContext());
-                String uid = sessionManager.pref.getString("USER_ID", "NULL");
-                //SENDING DATA TO API (POST REQ)
-                newTask(stitle, sstitle, sdescrip, sddate, uid);
+                if(stitle.length() != 0 && sstitle.length() != 0 && sdescrip.length() != 0){
+                    //GETTING USERID FROM SHARED PREFERENCES
+                    sessionManager = new SessionManager(getApplicationContext());
+                    String uid = sessionManager.pref.getString("USER_ID", "NULL");
+                    //SENDING DATA TO API (POST REQ)
+                    newTask(stitle, sstitle, sdescrip, sddate, uid);
+                }else {
+                    Toast.makeText(getApplicationContext(), "Empty field is not allowed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -81,6 +86,8 @@ public class AddTask extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
     public void newTask(String stitle, String sstitle, String sdescrip, String sddate, String uid){
@@ -96,7 +103,7 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<CrudModel> call, @NonNull Response<CrudModel> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(AddTask.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTask.this, "Task Created", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(AddTask.this, MainActivity.class);
                     startActivity(i);
                     finish();
@@ -111,5 +118,4 @@ public class AddTask extends AppCompatActivity {
         });
 
     }
-
 }
