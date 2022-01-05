@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,29 +57,46 @@
         android:text="The Ultimate List"
         android:textSize="22sp" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:orientation="horizontal"
+        android:gravity="start">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refresh"
+            android:id="@+id/refreshbtn"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Task"
+            android:id="@+id/addtaskbtn"
+            android:layout_marginLeft="9dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="470dp"
-        android:layout_margin="18dp"
-        android:id="@+id/tasklist"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@color/color1"
-        android:layout_marginRight="18dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="18dp"
-        android:layout_marginBottom="9dp"
-        android:id="@+id/refreshbtn"
-        android:text="Refresh"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@color/color1"
         android:layout_marginRight="18dp"
-        android:layout_marginLeft="18dp"
-        android:id="@+id/addtaskbtn"
-        android:text="Add Task"/>
+        android:layout_marginBottom="18dp"
+        android:id="@+id/tasklist"
+        android:scrollbars="vertical"/>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/emptytxt"
+    android:layout_margin="18dp"
+    android:text="Empty Task List!"
+    android:textSize="18sp"
+    android:fontFamily="@font/open_sans_italic"
+    android:gravity="center"
+    android:visibility="gone"/>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

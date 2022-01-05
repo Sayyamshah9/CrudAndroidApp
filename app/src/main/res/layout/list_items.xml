@@ -3,10 +3,11 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="9dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
     android:orientation="vertical"
-    android:background="@color/color3"
-    android:padding="12dp"
+    android:background="@drawable/shapes"
     android:clickable="true"
     android:elevation="@dimen/cardview_default_elevation"
     android:focusable="true"
@@ -18,7 +19,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/parentll"
         android:orientation="vertical"
-        android:foreground="?attr/selectableItemBackground">
+        android:padding="5dp"
+        android:background="?attr/selectableItemBackground">
 
         <!-- Start LinearLayout-1 (Horizontal)-->
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -30,6 +32,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:maxLength="25"
                 android:id="@+id/taskname"
                 android:text="Task Name"
                 android:textSize="16sp"
@@ -56,6 +60,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="180dp"
+                android:maxLength="25"
                 android:id="@+id/subtitle"
                 android:text="Subtitle"
                 android:textSize="14sp"
@@ -67,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/duedate"
                 android:text="due Date"
+                android:maxLength="15"
                 android:textSize="14sp"
                 android:textColor="@color/color2"
                 android:fontFamily="@font/open_sans_italic"
@@ -78,11 +85,12 @@
 
     <!--  Start Child LinearLayout -->
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/childll"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:padding="5dp">
 
         <!--   Start LinerLayout 3 (Horizantal)-->
         <androidx.appcompat.widget.LinearLayoutCompat

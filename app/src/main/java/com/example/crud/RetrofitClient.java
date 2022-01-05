@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.104:5000")
+            .baseUrl("https://apicrudapp.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }

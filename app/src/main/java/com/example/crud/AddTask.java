@@ -3,7 +3,10 @@ package com.example.crud;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,11 +28,16 @@ public class AddTask extends AppCompatActivity {
     EditText title, subtitle, description, ddate;
     String stitle, sstitle, sdescrip, sddate;
     SessionManager sessionManager;
+    BroadcastReceiver bReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+        //CHECKING INTERNET CONNECTION CODE
+        bReceiver = new ConnectionReciver();
+        registerReceiver(bReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         //GETTING VIEWS
         backbtn = findViewById(R.id.backbtn);
@@ -54,8 +62,8 @@ public class AddTask extends AppCompatActivity {
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
-                sddate = materialDatePicker.getHeaderText();
-                ddate.setText(sddate);
+//                sddate = materialDatePicker.getHeaderText();
+                ddate.setText(materialDatePicker.getHeaderText());
             }
         });
 
@@ -66,8 +74,9 @@ public class AddTask extends AppCompatActivity {
                 stitle = title.getText().toString();
                 sstitle = subtitle.getText().toString();
                 sdescrip = description.getText().toString();
+                sddate = ddate.getText().toString();
 
-                if(stitle.length() != 0 && sstitle.length() != 0 && sdescrip.length() != 0){
+                if(stitle.length() != 0 && sstitle.length() != 0 && sdescrip.length() != 0 && sddate.length() != 0 ){
                     //GETTING USERID FROM SHARED PREFERENCES
                     sessionManager = new SessionManager(getApplicationContext());
                     String uid = sessionManager.pref.getString("USER_ID", "NULL");
@@ -92,7 +101,6 @@ public class AddTask extends AppCompatActivity {
 
     public void newTask(String stitle, String sstitle, String sdescrip, String sddate, String uid){
 
-        Toast.makeText(AddTask.this, uid, Toast.LENGTH_SHORT).show();
         RetrofitClient crudRetrofitClient = new RetrofitClient();
         ApiInterface crudApiInterface = crudRetrofitClient.retrofit.create(ApiInterface.class);
 
@@ -113,7 +121,8 @@ public class AddTask extends AppCompatActivity {
             }
             @Override
             public void onFailure(@NonNull Call<CrudModel> call, @NonNull Throwable t) {
-                Toast.makeText(AddTask.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddTask.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddTask.this, "Failed to Create Task Retry!", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -9,10 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -40,21 +43,30 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     SessionManager sessionManager;
     RecyclerView recyclerView;
     Button addtaskbtn, refreshbtn;
-    TextView textViewUserName;
+    TextView textViewUserName, emptyytxtView;
     //VARIABLES FOR DIALOG BOX
     EditText editTextTitle, editTextSubTitle, editTextDescription, editTextDueDate;
     String stringTitle, stringSubTitle, stringDescription, stringDueDate;
+    BroadcastReceiver bReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toast.makeText(MainActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+
+        //CHECKING INTERNET CONNECTION CODE
+        bReceiver = new ConnectionReciver();
+        registerReceiver(bReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         sessionManager = new SessionManager(getApplicationContext());
         logoutBtn = findViewById(R.id.logoutbtn);
         addtaskbtn = findViewById(R.id.addtaskbtn);
         refreshbtn = findViewById(R.id.refreshbtn);
+        recyclerView = findViewById(R.id.tasklist);
         textViewUserName = findViewById(R.id.uName);
+        emptyytxtView = findViewById(R.id.emptytxt);
 
 
         //GETTING ID'S FROM SHARED PREFERENCES
@@ -66,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         refreshbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Refresh...", Toast.LENGTH_SHORT).show();
                 getCrudDataAndSetInRecyclerView(userId);
             }
         });
@@ -123,18 +136,23 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             public void onResponse(@NonNull Call<List<CrudModel>> call, @NonNull Response<List<CrudModel>> response) {
                 if(response.isSuccessful()){
                    List<CrudModel> data = response.body();
-                    //RECYCLERVIEW CODE
-                    recyclerView = findViewById(R.id.tasklist);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    CrudAdapter crudAdapter = new CrudAdapter(MainActivity.this,MainActivity.this, data);
-                    recyclerView.setAdapter(crudAdapter);
+                   if(data.isEmpty()){
+                       recyclerView.setVisibility(View.GONE);
+                       emptyytxtView.setVisibility(View.VISIBLE);
+                   }else {
+                       //RECYCLERVIEW CODE
+                       recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                       CrudAdapter crudAdapter = new CrudAdapter(MainActivity.this,MainActivity.this, data);
+                       recyclerView.setAdapter(crudAdapter);
+                   }
                 }else {
                     Log.e(TAG, response.message());
                 }
             }
             @Override
             public void onFailure(@NonNull Call<List<CrudModel>> call, @NonNull Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -182,8 +200,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
-                stringDueDate = materialDatePicker.getHeaderText();
-                editTextDueDate.setText(stringDueDate);
+//                stringDueDate = materialDatePicker.getHeaderText();
+                editTextDueDate.setText(materialDatePicker.getHeaderText());
             }
         });
 
@@ -195,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                 stringDescription = editTextDescription.getText().toString();
                 stringDueDate = editTextDueDate.getText().toString();
 
-                if(stringTitle.length() != 0 && stringSubTitle.length() != 0 && stringDescription.length() != 0){
+                if(stringTitle.length() != 0 && stringSubTitle.length() != 0 && stringDescription.length() != 0 && stringDueDate.length() != 0){
                     //SENDING DATA TO API BODY
                     EditDeleteDataClass editDeleteDataClass = new EditDeleteDataClass(MainActivity.this);
                     editDeleteDataClass.editTask(eCM.get_id(), stringTitle, stringSubTitle, stringDescription, stringDueDate);

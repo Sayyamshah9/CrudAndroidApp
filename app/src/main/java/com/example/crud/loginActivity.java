@@ -1,9 +1,14 @@
 package com.example.crud;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,20 +16,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class loginActivity extends AppCompatActivity {
+public class loginActivity extends AppCompatActivity  {
 
     TextView result, LoginEmailError, LoginPassError, register;
     EditText LoginEmail, LoginPassword;
     Button loginbtn;
     String sLoginEmail, sLoginPassword;
     SessionManager sessionManager;
+    BroadcastReceiver bReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +40,14 @@ public class loginActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
 
         sessionManager.isLoggedIn();
+        if(sessionManager.isLogin()){
+            finish();
+        }
 
-//        Toast.makeText(loginActivity.this, "Status: " + sessionManager.isLogin() , Toast.LENGTH_SHORT).show();
+        //CHECKING INTERNET CONNECTION CODE
+        bReceiver = new ConnectionReciver();
+        registerReceiver(bReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+//        unregisterReceiver(bReceiver);
 
         //FETCHING VIEWS
         LoginEmail = findViewById(R.id.LoginEmail);
@@ -49,6 +61,7 @@ public class loginActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(loginActivity.this, "Checking Connection...", Toast.LENGTH_SHORT).show();
                 //GETTING VALUES ENTERED BY USER
                 sLoginEmail = LoginEmail.getText().toString().trim();
                 sLoginPassword = LoginPassword.getText().toString().trim();
@@ -102,7 +115,8 @@ public class loginActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(@NonNull Call<UserModel> call, @NonNull Throwable t) {
-                result.setText(t.getMessage());
+//                result.setText(t.getMessage());
+                Toast.makeText(loginActivity.this, "Fail to Connect Retry!", Toast.LENGTH_SHORT).show();
             }
         });
     }
