@@ -130,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         RetrofitClient retrofitClient1 = new RetrofitClient();
         ApiInterface apiInterface1 = retrofitClient1.retrofit.create(ApiInterface.class);
 
-        Call<List<CrudModel>> crudCall = apiInterface1.getCrudData(Uid);
+        String jsonToken = sessionManager.pref.getString("JWT_TOKEN", "NULL");
+
+        Call<List<CrudModel>> crudCall = apiInterface1.getCrudData(jsonToken, Uid);
         crudCall.enqueue(new Callback<List<CrudModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<CrudModel>> call, @NonNull Response<List<CrudModel>> response) {
@@ -151,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
             @Override
             public void onFailure(@NonNull Call<List<CrudModel>> call, @NonNull Throwable t) {
-//                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "Failed to connect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Failed to connect", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -98,11 +98,12 @@ public class loginActivity extends AppCompatActivity  {
                 String msgResponseFromApi = response.body().getMsg();
                 String idResponseFromApi = response.body().get_id();
                 String userNamefromApi = response.body().getUsername();
+                String tokenResponse = response.body().getAuth_token();
 
                 if((response.body() != null) && (response.isSuccessful())){
                     if(msgResponseFromApi.equals("Logged In")){
                         Toast.makeText(loginActivity.this, msgResponseFromApi, Toast.LENGTH_SHORT).show();
-                        sessionManager.createSession(true, idResponseFromApi, userNamefromApi);
+                        sessionManager.createSession(true, idResponseFromApi, userNamefromApi, tokenResponse);
                         Intent i = new Intent(loginActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();

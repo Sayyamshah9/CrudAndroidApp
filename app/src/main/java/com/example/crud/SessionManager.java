@@ -17,11 +17,12 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createSession(Boolean loginStatus, String id, String username){
+    public void createSession(Boolean loginStatus, String id, String username, String token){
 
         editor.putString("USER_ID", id);
         editor.putString("User_Name", username);
         editor.putBoolean("STATUS_KEY", loginStatus);
+        editor.putString("JWT_TOKEN", token);
         editor.apply();
     }
 

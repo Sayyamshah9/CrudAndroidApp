@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -22,7 +23,7 @@ public interface ApiInterface {
 
     //get request for getting crud data by userid
     @GET("/crudpage/{id}")
-    Call<List<CrudModel>> getCrudData(@Path("id") String id);
+    Call<List<CrudModel>> getCrudData(@Header("auth_token") String tkon, @Path("id") String id);
 
     //creating new task post request
     @POST("/crudpage/{id}")

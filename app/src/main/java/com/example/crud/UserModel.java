@@ -1,7 +1,21 @@
 package com.example.crud;
 
 public class UserModel {
-    String _id, username, emailid, password, confirm, msg;
+    String _id;
+    String username;
+    String emailid;
+    String password;
+    String confirm;
+    String msg;
+    String auth_token;
+
+    public String getAuth_token() {
+        return auth_token;
+    }
+
+    public void setAuth_token(String auth_token) {
+        this.auth_token = auth_token;
+    }
 
     //CONSTRUCTOR FOR REGRISTRATION DETAILS
     public UserModel(String username, String emailid, String password, String confirm) {
@@ -63,4 +77,5 @@ public class UserModel {
     public void setConfirm(String confirm) {
         this.confirm = confirm;
     }
+
 }
